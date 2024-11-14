@@ -176,6 +176,8 @@ jobs:
           - arm-unknown-linux-gnueabi
           - armv7-linux-androideabi
           - armv7-unknown-linux-musleabihf
+          - loongarch64-unknown-linux-gnu
+          - loongarch64-unknown-linux-musl
           - i686-pc-windows-msvc
           - i686-unknown-linux-gnu
           - i686-unknown-linux-musl
@@ -257,6 +259,12 @@ jobs:
           - target: armv7-unknown-linux-musleabihf
             host_os: ubuntu-22.04
 
+          - target: loongarch64-unknown-linux-gnu
+            host_os: ubuntu-24.04
+
+          - target: loongarch64-unknown-linux-musl
+            host_os: ubuntu-24.04
+
           - target: i686-pc-windows-msvc
             host_os: windows-latest
 
@@ -321,6 +329,12 @@ jobs:
 
           - target: x86_64-unknown-linux-gnu
             host_os: ubuntu-22.04
+
+        exclude:
+          - target: loongarch64-unknown-linux-gnu
+            rust_channel: 1.63.0
+          - target: loongarch64-unknown-linux-musl
+            rust_channel: 1.63.0
 
     steps:
       - if: ${{ contains(matrix.host_os, 'ubuntu') }}
@@ -578,6 +592,8 @@ jobs:
           - aarch64-unknown-linux-gnu      # Has assembly
           - arm-unknown-linux-gnueabi      # Has assembly
           - armv7-unknown-linux-gnueabihf  # Has assembly
+          - loongarch64-unknown-linux-gnu  # Has assembly
+          - loongarch64-unknown-linux-musl # Has assembly
           # - i686-unknown-linux-gnu       # Has assembly; handled specially below.
           - powerpc-unknown-linux-gnu      # No assembly 32-bit big-endian with flags
           - powerpc64-unknown-linux-gnu    # No assembly 64-bit big-endian with flags
@@ -622,6 +638,12 @@ jobs:
             mode: # debug
             rust_channel: nightly
             host_os: ubuntu-22.04
+
+          - target: loongarch64-unknown-linux-gnu
+            host_os: ubuntu-24.04
+
+          - target: loongarch64-unknown-linux-musl
+            host_os: ubuntu-24.04
 
           # TODO: Use the -musl target after
           # https://github.com/rust-lang/rust/issues/79556 and
